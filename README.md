@@ -81,6 +81,7 @@ The differencies and advantages with other C2 frameworks are the following:
 * Out-of-the-box Persistence: Persistence is quite crucial in a red team engagement. As a result, C3 offers out-of-the-box persistence to the post-exploitation attack.
 * Direct Code Execution: It offers direct code execution. Although, in some cases this will limit the attack's execution. In the latter case, using any adapt feature could assist, like using the shellcode of another C2 framework.
 * Enhanced Stealth: EDRs had zero detections against the post-exploitation attacks of this implementation. Considering this implementation had minimal usage of evasion techiques, the evasion capabilities can be further enhanced in the future, if needed. Also, it uses secure traffic with the C2 webserver with the assist of HTTP/3 and QUIC.
+* Lightweight: The extension, native app and webserver execution is lightweight.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
