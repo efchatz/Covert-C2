@@ -129,7 +129,8 @@ For testing purposes, an Azure VM was used, along with a free azurewebsites doma
 12. ``` sudo chown -R www-data:www-data /var/www/domain ```
 13. Allow in firewall the 443/tcp and 443/udp ports
 14. ``` sudo nano /etc/caddy/Caddyfile ```
-15. ``` domain {
+15. ```
+    domain {
         root * /var/www/domain
 
         # Enable HTTP/3
@@ -172,8 +173,7 @@ For testing purposes, an Azure VM was used, along with a free azurewebsites doma
 
         # Or serve a PHP site through php-fpm:
         # php_fastcgi localhost:9000
-        php_fastcgi unix//run/php/php-fpm.sock  # Use php-fpm to process PHP files
-} ```
+        php_fastcgi unix//run/php/php-fpm.sock  # Use php-fpm to process PHP files } 
 16. ``` sudo systemctl restart caddy ```
 
 #### Extension
