@@ -218,13 +218,41 @@ C3 operates with direct command execution, having the following flow between the
 6. The extension relays the result back to the C2 server.
 7. The attacker views the execution result.
 
-The following figure demostrates this communication.
+The following figure demonstrates this communication.
 
 <div align="center">
   <a href="https://github.com/efchatz/Covert-C2/blob/main/images/communication.png">
     <img src="images/logo.png" alt="Logo" width="300" height="150">
   </a>
 </div>
+
+Webserver handles different endpoints, namely, /show-response, /query, /get-dll, /plugin-request, /get-plugin-request, /send-plugin-response, and /download/{filename}.
+
+1. /show-response: View the latest response, command output, and file information (used by the attacker).
+
+![show-response-c2](https://github.com/user-attachments/assets/7f133be4-0df6-4404-b3c2-b4a13a859494)
+
+2. /query: Interactive interface to respond to plugin requests and view files (used by the attacker). When a connection is received by the extension, the placeholder is enabled and the attacker can enter the URL with the relevant DLL they want to execute. The response is shown under the "Last Execution" field.
+
+![1-c2](https://github.com/user-attachments/assets/d969c6fc-2629-4fac-ad3c-8c628d190f22)
+
+
+In this step, the attacker can send the relevant URL to the native app to download the DLL and execute it.
+
+![2-c2](https://github.com/user-attachments/assets/6d003ac8-ed3c-4137-a4bd-96e6cb263788)
+
+
+Here the attacker received the executed command.
+
+![4-c2](https://github.com/user-attachments/assets/fc273d68-3c16-43bf-a920-6e79030a0135)
+
+3. /get-dll: Download the command execution DLL (used by the native app).
+4. /plugin-request: POST endpoint for plugin requests (used by the extension).
+5. /get-plugin-request: GET endpoint to check for active plugin requests (used by the extension).
+6. /send-plugin-response: POST endpoint to submit responses and handle file uploads (used by the extension).
+7. /download/{filename}: Download retrieved files from the server (used by the attacker).
+
+
 
 For testing purposes, the following six scenarios were implemented and tested to verify the EDR's detection capabilities and the C3 functionality. The relevant commands are comment-out in the Dll code.
 
