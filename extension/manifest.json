@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Native Messaging Plugin",
+  "version": "1.0",
+  "description": "This extension enhances your offline experience with Google Docs and comes pre-installed on your device.",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "nativeMessaging"
+  ],
+  "host_permissions": [
+    "https://subdomain.domain/*"
+  ]
+}
