@@ -283,7 +283,7 @@ Several potential detection points emerge from the usage of C3. In detail, the f
 
 From the above mitigations, only the GPO is the most effective one if configured correctly since it blocks the installation of any extension ID that it is not in the whitelist of the relevant policy. Two (2) and three (3) options in the above list can be potentially bypassed with different implementation and/or misconfigurations.
 
-For example, AppLocker can be bypassed if a portable browser is used or a filetype that is not in the restricted list, say ``` .vbs ``` or with a DLl sideloading attack. Additionally, monitoring different functionalities functions as a signatured way of flagging these operations. As a result, an attacker that uses a different functionality could potentially bypass this detection method.
+For example, AppLocker can be bypassed if a portable browser is used or a filetype that is not in the restricted list, say ``` .vbs ``` or with a DLL sideloading attack. Additionally, monitoring different functionalities functions as a signatured way of flagging these operations. As a result, an attacker that uses a different functionality could potentially bypass this detection method.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
