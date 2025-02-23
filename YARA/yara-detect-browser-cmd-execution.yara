@@ -3,7 +3,6 @@ rule Detect_Browser_CMD_Execution {
         description = "Detects Chrome or Edge executing cmd.exe, including potential chained executions"
         author = "Efstratios Chatzoglou"
         version = "1.0"
-        date = "2025-02-21"
     strings:
         $browser_chrome = "chrome.exe" nocase ascii wide
         $browser_edge = "msedge.exe" nocase ascii wide
