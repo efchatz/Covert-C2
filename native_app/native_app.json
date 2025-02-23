@@ -1,0 +1,8 @@
+{
+  "name": "NAME (THE SAME NAME AS WITH THE REGISTRY ENTRY)",
+  "description": "Example Native Messaging Host",
+  "path": "C:\\path\\to\\the\\native_app.exe",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://ID of the malicious extension from the Secure Preferences file/"  ]
+}
