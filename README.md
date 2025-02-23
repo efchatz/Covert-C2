@@ -188,6 +188,8 @@ Then, a new registry entry is required for the extension to be able to communica
 
 The ``` native_app.json ``` needs the extension ID of the malicious extension to allow the communication with the native app. So, obtain the extension ID from the Secure Preferences file of either MSEdge or Chrome and add it to ``` native_app.json ``` either manually or automatically.
 
+For development purposes, the ``` test.py ``` in dev folder can be used for assistance.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
