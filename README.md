@@ -62,7 +62,7 @@ In this case, the Native Messaging API was weaponized to be used for post-exploi
 
 Another reason that this serves as a PoC and not as a complete post-exploitation framework is because this is an open-source project and most EDRs will signature it. So, providing the methodology and simple way of communication could assist future and authorized red-team engagements to success.
 
-All previous works focused on exploining the browser itself, e.g., stealing cookies, injecting different domains, causing redirects. Only EarthKitsune APT group used a similar techique in 2023 to load a shellcode in the memory of the host by using the Native Messaging API in their attack flow.
+All previous works focused on exploiting the browser itself, e.g., stealing cookies, injecting different domains, causing redirects. Only EarthKitsune APT group used a similar technique in 2023 to load a shellcode in the memory of the host by using the Native Messaging API in their attack flow.
 
 However, this work communicates directly with the OS, i.e., executes direct commands and uses minimal evasion tactics to achieve this post-exploitation attack. As a result, no tested EDR (4 were tested on free trial) was able to flag this communication as malicious.
 
@@ -183,7 +183,7 @@ On the other hand, Chrome is restricted when trying to install extensions outsid
 To achieve installation and bypass this issue, a legitimate pre-installed extension must be replaced with the malicious one, e.g., nmmhkkegccagdldgiimedpiccmgmieda, with the files of the malicious extension (background.js and manifest.json). The latter step and the "--load-extension" flag are needed to be used to assure that Chrome will not delete the malicious extension.
 
 #### Native App
-Native app can be installed by simply storing the ``` native_app.exe ```, the ``` native_app.json ```, and the ``` libcurl.dll ``` files in a directory with user access, say AppData. The Dll ``` libcurl.dll ``` is needed from the native app to communicate with HTTP/3. Of course, this communication can be done with say, HTTP/1. So, by altering the code, the ``` libcurl.dll ``` usage is not nessesary.
+Native app can be installed by simply storing the ``` native_app.exe ```, the ``` native_app.json ```, and the ``` libcurl.dll ``` files in a directory with user access, say AppData. The Dll ``` libcurl.dll ``` is needed from the native app to communicate with HTTP/3. Of course, this communication can be done with say, HTTP/1. So, by altering the code, the ``` libcurl.dll ``` usage is not nessesary. However, ``` libcurl.dll ``` is available here for download [https://curl.se/download.html](https://curl.se/download.html).
 
 Then, a new registry entry is required for the extension to be able to communicate with the native app. So, a new entry in ``` HKEY_CURRENT_USER\SOFTWARE\Google\Chrome\NativeMessagingHosts\NEW ENTRY NAME ``` and add as a path the directory that ``` native_app.json ``` resides.
 
