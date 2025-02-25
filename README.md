@@ -73,15 +73,15 @@ This means that such an attack is mostly undocumented by EDR vendors and could c
 
 <!-- Capabilities & Advantages -->
 ## Capabilities & Advantages
-The differencies and advantages with other C2 frameworks are the following:
+The differences and advantages with other C2 frameworks are the following:
 
 * Decentralized approach: Each host can communicate separately with the C2 server, say by using subdomains or implementing cookie functionality.
 * Expandability: The implementation right now supports only Windows, but it can be easily extended to be used against MacOS or Linux since it is mainly focused on using the Native Messaging API which is supported by both MacOS and Linux major browsers.
 * Adaptability: It can adapt in different environments. For example, it can load the shellcode of another C2 framework to continue the post-exploitation attack or construct different type of commands for direct execution.
 * Out-of-the-box Persistence: Persistence is quite crucial in a red team engagement. As a result, C3 offers out-of-the-box persistence to the post-exploitation attack.
-* Direct Code Execution: It offers direct code execution. Although, in some cases this will limit the attack's execution. In the latter case, using any adapt feature could assist, like using the shellcode of another C2 framework.
-* Enhanced Stealth: EDRs had zero detections against the post-exploitation attacks of this implementation. Considering this implementation had minimal usage of evasion techiques, the evasion capabilities can be further enhanced in the future, if needed. Also, it uses secure traffic with the C2 webserver with the assist of HTTP/3 and QUIC.
-* Lightweight: The extension, native app and webserver execution is lightweight.
+* Direct Code Execution: It offers direct code execution. Although, in some cases, this will limit the attack's execution. In the latter case, using any adapt feature could assist, like using the shellcode of another C2 framework.
+* Enhanced Stealth: EDRs had zero detections against the post-exploitation attacks of this implementation. Considering this implementation had minimal usage of evasion techniques, the evasion capabilities can be further enhanced in the future, if needed. Also, it uses secure traffic with the C2 webserver with the assistance of HTTP/3 and QUIC.
+* Lightweight: The extension, native app, and webserver execution is lightweight.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -180,10 +180,10 @@ For testing purposes, an Azure VM was used, along with a free azurewebsites doma
 Regarding the extension installation, we will need the ``` background.js ``` and ``` manifest.json ``` files. Before proceeding with the installation, it should be mentioned there is a different behavior in Chrome and MSEdge. MSEdge can load extensions from anywhere without any issues. However, when the malicious extension is installed and the user opens the browser, the browser popups a message named "Turn off extensions in developer mode." with a highlighted blue button that when it clicked it disables the malicious extension. This can be bypassed with the usage of "headless" mode which will be explained later on.
 
 On the other hand, Chrome is restricted when trying to install extensions outside of the Chrome store. For instance, when using the "--load-extension" flag to load the malicious extension, when the user or the process terminates, Chrome deletes the complete folder of the loaded extension. 
-To achieve installation and bypass this issue, a legitimate pre-installed extension must be replaced with the malicious one, e.g., nmmhkkegccagdldgiimedpiccmgmieda, with the files of the malicious extension (background.js and manifest.json). The latter step and the "--load-extension" flag are needed to be used to assure that Chrome will not delete the malicious extension.
+To achieve installation and bypass this issue, a legitimate pre-installed extension must be replaced with the malicious one, e.g., nmmhkkegccagdldgiimedpiccmgmieda, with the files of the malicious extension (background.js and manifest.json). The latter step and the "--load-extension" flag are needed to be used to ensure that Chrome will not delete the malicious extension.
 
 #### Native App
-Native app can be installed by simply storing the ``` native_app.exe ```, the ``` native_app.json ```, and the ``` libcurl.dll ``` files in a directory with user access, say AppData. The Dll ``` libcurl.dll ``` is needed from the native app to communicate with HTTP/3. Of course, this communication can be done with say, HTTP/1. So, by altering the code, the ``` libcurl.dll ``` usage is not nessesary. However, ``` libcurl.dll ``` is available here for download [https://curl.se/download.html](https://curl.se/download.html).
+Native app can be installed by simply storing the ``` native_app.exe ```, the ``` native_app.json ```, and the ``` libcurl.dll ``` files in a directory with user access, say AppData. The Dll ``` libcurl.dll ``` is needed from the native app to communicate with HTTP/3. Of course, this communication can be done with say, HTTP/1. So, by altering the code, the ``` libcurl.dll ``` usage is not necessary. However, ``` libcurl.dll ``` is available here for download [https://curl.se/download.html](https://curl.se/download.html).
 
 Then, a new registry entry is required for the extension to be able to communicate with the native app. So, a new entry in ``` HKEY_CURRENT_USER\SOFTWARE\Google\Chrome\NativeMessagingHosts\NEW ENTRY NAME ``` and add as a path the directory that ``` native_app.json ``` resides.
 
@@ -201,11 +201,11 @@ This section is dedicated to the usage of C3 separated in the following parts: P
 ### Persistence
 Persistence is by default enabled in the C3 since in most cases a user will open their infected browser and as a result, the malicious extension will communicate directly with the webserver.
 
-To further enhance peristence, an attacker can use either shortcuts or the headless mode. First, by simply replacing the legitimate shortcuts and adding the "--load-extension" flag could allow the attacker to achieve peristence and communication with the webserver.
+To further enhance persistence, an attacker can use either shortcuts or the headless mode. First, by simply replacing the legitimate shortcuts and adding the "--load-extension" flag could allow the attacker to achieve persistence and communication with the webserver.
 
 However, to avoid having user interaction, an attacker can use the "--headless" mode. MSEdge can use headless mode by adding the "--user-data-dir" flag during execution. This could create a directory with all user's preferences in the desired location, allowing the execution of the malicious extension in headless mode. This means that an attacker can use MSEdge with a malicious extension without having issues with the relevant popup message of disabling the development (malicious) extension.
 
-The same case can be applied to Chrome. However, Chrome for some reason requires to be executed twice with the same flags, i.e., headless and user-data-dir to establish a stable communication with the webserver. As a result, both browsers can be used with headless mode and say a Task Scheduler, without requiring user's interaction for persistence.
+The same case can be applied to Chrome. However, Chrome for some reason requires to be executed twice with the same flags, i.e., headless and user-data-dir to establish a stable communication with the webserver. As a result, both browsers can be used with headless mode and say a Task Scheduler, without requiring users' interaction for persistence.
 
 ### Direct Command Execution
 C3 operates with direct command execution, having the following flow between the attacker and the victim:
@@ -263,7 +263,7 @@ For testing purposes, the following six scenarios were implemented and tested to
 5. Lateral movement: The ``` net use ``` command was employed to establish a connection to another host via SMB. Similar to the ``` schtasks ``` scenario, file redirection was used to capture the output. It is noted that enabling WinRM on target hosts would simplify lateral movement and remote command execution with output capture.
 6. Random: The last scenario was employed to illustrate the effectiveness of the evasion with random command execution. This means that this scenario used all the previous scenarios in random order.
 
-To evaluate the detectability of Covert C2 by each EDR, we first installed the necessary components: the Covert C2 framework (including the web server and workstation components) and then the EDR software on the target workstation. The evaluation involved initiating a connection from the Chrome browser to the C2 server every 10 sec. If a command was available, the communication proceeded as described in relevant figure. Otherwise, the C2 server responded with "No". 
+To evaluate the detectability of Covert C2 by each EDR, we first installed the necessary components: the Covert C2 framework (including the web server and workstation components) and then the EDR software on the target workstation. The evaluation involved initiating a connection from the Chrome browser to the C2 server every 10 sec. If a command was available, the communication proceeded as described in the relevant figure. Otherwise, the C2 server responded with "No". 
 
 Each of the six test scenarios was executed for five minutes with randomized command selection, i.e., either a specific scenario URL or a "No" response from the C2 server, for a total of 15 min per EDR. A final 10-min mixed scenario was then conducted, where commands were randomly selected from any of the five test cases (command execution or file upload).
 
@@ -279,11 +279,11 @@ Several potential detection points emerge from the usage of C3. In detail, the f
 
 1. Using Group Policy Objects (GPO) to disable the installation of browser extensions, apart from the ones that are whitelisted.
 2. Using AppLocker and/or Windows Defender Application Control (WDAC).
-3. Registry entries, Task Scheduler, portable execution of browsers, shortcuts, and browsers executing CMD can be potentially motitored with different YARA rules. While not foulproof, examples of three (3) YARA rules are provided in the YARA directory.
+3. Registry entries, Task Scheduler, portable execution of browsers, shortcuts, and browsers executing CMD can be potentially monitored with different YARA rules. While not foulproof, examples of three (3) YARA rules are provided in the YARA directory.
 
 From the above mitigations, only the GPO is the most effective one if configured correctly since it blocks the installation of any extension ID that it is not in the whitelist of the relevant policy. Two (2) and three (3) options in the above list can be potentially bypassed with different implementation and/or misconfigurations.
 
-For example, AppLocker can be bypassed if a portable browser is used or a filetype that is not in the restricted list, say ``` .vbs ``` or with a DLL sideloading attack. Additionally, monitoring different functionalities functions as a signatured way of flagging these operations. As a result, an attacker that uses a different functionality could potentially bypass this detection method.
+For example, AppLocker can be bypassed if a portable browser is used or a filetype that is not in the restricted list, say ``` .vbs ``` or with a DLL sideloading attack. Additionally, monitoring different functionalities functions as a signature way of flagging these operations. As a result, an attacker that uses a different functionality could potentially bypass this detection method.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -291,7 +291,7 @@ For example, AppLocker can be bypassed if a portable browser is used or a filety
 <!-- LICENSE -->
 ## License
 
-Distributed under the project_license. See `LICENSE.txt` for more information. C3 repository is provided for educational and/or legitimate purposes with no guaranty.
+Distributed under the MIT license. See `LICENSE.txt` for more information. C3 repository is provided for educational and/or legitimate purposes with no warranty.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
