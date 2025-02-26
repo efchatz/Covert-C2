@@ -177,7 +177,10 @@ For testing purposes, an Azure VM was used, along with a free azurewebsites doma
 16. ``` sudo systemctl restart caddy ```
 
 #### Extension
-Regarding the extension installation, we will need the ``` background.js ``` and ``` manifest.json ``` files. Before proceeding with the installation, it should be mentioned there is a different behavior in Chrome and MSEdge. MSEdge can load extensions from anywhere without any issues. However, when the malicious extension is installed and the user opens the browser, the browser popups a message named "Turn off extensions in developer mode." with a highlighted blue button that when it clicked it disables the malicious extension. This can be bypassed with the usage of "headless" mode which will be explained later on.
+Regarding the extension installation, we will need the ``` background.js ``` and ``` manifest.json ``` files. Before proceeding with the installation, it should be mentioned there is a different behavior in Chrome and MSEdge. MSEdge can load extensions from anywhere without any issues. However, when the malicious extension is installed and the user opens the browser, the browser popups a message named "Turn off extensions in developer mode." with a highlighted blue button that when it clicked it disables the malicious extension. This can be bypassed with the usage of "headless" mode which will be explained later on. The following screenshot demonstrates this popup message.
+
+![msedge-dev-ext](https://github.com/user-attachments/assets/fbe16e82-0b43-4405-bcbd-8bff39c56c69)
+
 
 On the other hand, Chrome is restricted when trying to install extensions outside of the Chrome store. For instance, when using the "--load-extension" flag to load the malicious extension, when the user or the process terminates, Chrome deletes the complete folder of the loaded extension. 
 To achieve installation and bypass this issue, a legitimate pre-installed extension must be replaced with the malicious one, e.g., nmmhkkegccagdldgiimedpiccmgmieda, with the files of the malicious extension (background.js and manifest.json). The latter step and the "--load-extension" flag are needed to be used to ensure that Chrome will not delete the malicious extension.
@@ -201,7 +204,10 @@ This section is dedicated to the usage of C3 separated in the following parts: P
 ### Persistence
 Persistence is by default enabled in the C3 since in most cases a user will open their infected browser and as a result, the malicious extension will communicate directly with the webserver.
 
-To further enhance persistence, an attacker can use either shortcuts or the headless mode. First, by simply replacing the legitimate shortcuts and adding the "--load-extension" flag could allow the attacker to achieve persistence and communication with the webserver.
+To further enhance persistence, an attacker can use either shortcuts or the headless mode. First, by simply replacing the legitimate shortcuts and adding the "--load-extension" flag could allow the attacker to achieve persistence and communication with the webserver. The following screenshot demonstrates the execution of this flag.
+
+![chrome-load-extension](https://github.com/user-attachments/assets/8fca5cff-6497-4868-9293-76c12fea980d)
+
 
 However, to avoid having user interaction, an attacker can use the "--headless" mode. MSEdge can use headless mode by adding the "--user-data-dir" flag during execution. This could create a directory with all user's preferences in the desired location, allowing the execution of the malicious extension in headless mode. This means that an attacker can use MSEdge with a malicious extension without having issues with the relevant popup message of disabling the development (malicious) extension.
 
@@ -269,6 +275,11 @@ Each of the six test scenarios was executed for five minutes with randomized com
 
 Remarkably, the proposed scheme evaded detection by all tested EDR solutions across all six scenarios. This finding suggests a significant vulnerability in a range of EDR products to this post-exploitation technique. The fact that zero detections were recorded, despite the absence of code obfuscation (excluding the necessary Base64 encoding for file uploads), further underscores the potential impact of this approach. 
 
+Here is a short demonstration of the C3 command execution. Webserver is waiting for a connection to be established with an extension. Only then, the webapp enables the two buttons with green color. The first command is a whoami, while the second command is a ping 8.8.8.8. Both commands return their output to the webserver. Note that the OneDrive popup is irrelevant to the C3.
+
+https://github.com/user-attachments/assets/0b1486f7-09b4-4992-930a-3172991126b4
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -284,6 +295,15 @@ Several potential detection points emerge from the usage of C3. In detail, the f
 From the above mitigations, only the GPO is the most effective one if configured correctly since it blocks the installation of any extension ID that it is not in the whitelist of the relevant policy. Two (2) and three (3) options in the above list can be potentially bypassed with different implementation and/or misconfigurations.
 
 For example, AppLocker can be bypassed if a portable browser is used or a filetype that is not in the restricted list, say ``` .vbs ``` or with a DLL sideloading attack. Additionally, monitoring different functionalities functions as a signature way of flagging these operations. As a result, an attacker that uses a different functionality could potentially bypass this detection method.
+
+To visualize the analysis, the following screenshot demonstrates the child processes of Chrome browser when communicates with the native app and when the native app executes a ping command. The third screenshot demonstrates what a user will view when a GPO blocks the installation of not-whitelisted extensions and an attacker tries to load a malicious extension with the "load-extension" flag.
+
+![native-app-comm](https://github.com/user-attachments/assets/0466b4cb-158a-444d-9b91-569055446c1d)
+
+![native-app-ping](https://github.com/user-attachments/assets/a3e1d8f1-de0c-4f3c-abf2-891d51a3638b)
+
+![gpo-block-extensions](https://github.com/user-attachments/assets/5640f93c-27ce-4d8f-be70-157b9282fb47)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
