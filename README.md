@@ -226,23 +226,23 @@ The following figure demonstrates this communication.
   </a>
 </div>
 
-Webserver handles different endpoints, namely, /show-response, /query, /get-dll, /plugin-request, /get-plugin-request, /send-plugin-response, and /download/{filename}.
+Webserver handles different endpoints, namely, /show-response, /query, /get-dll, /plugin-request, /get-plugin-request, /send-plugin-response, and /download/{filename}. The following screenshot demonstrates the homepage of the webserver.
 
-1. /show-response: View the latest response, command output, and file information (used by the attacker).
+![basic-c2](https://github.com/user-attachments/assets/467116eb-41d2-4e6a-a44c-71cb7fb1802c)
+
+### 1. /show-response: View the latest response, command output, and file information (used by the attacker). 
 
 ![show-response-c2](https://github.com/user-attachments/assets/7f133be4-0df6-4404-b3c2-b4a13a859494)
 
-2. /query: Interactive interface to respond to plugin requests and view files (used by the attacker). When a connection is received by the extension, the placeholder is enabled and the attacker can enter the URL with the relevant DLL they want to execute. The response is shown under the "Last Execution" field.
-
+### 2. /query: Interactive interface to respond to plugin requests and view files (used by the attacker). When a connection is received by the extension, the placeholder is enabled and the attacker can enter the URL with the relevant DLL they want to execute. The response is shown under the "Last Execution" field.
+   
 ![1-c2](https://github.com/user-attachments/assets/d969c6fc-2629-4fac-ad3c-8c628d190f22)
 
-
-In this step, the attacker can send the relevant URL to the native app to download the DLL and execute it.
+### In this step, the attacker can send the relevant URL to the native app to download the DLL and execute it.
 
 ![2-c2](https://github.com/user-attachments/assets/6d003ac8-ed3c-4137-a4bd-96e6cb263788)
 
-
-Here the attacker received the executed command.
+### Here the attacker received the executed command.
 
 ![4-c2](https://github.com/user-attachments/assets/fc273d68-3c16-43bf-a920-6e79030a0135)
 
