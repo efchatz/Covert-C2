@@ -60,9 +60,9 @@ This is a new C2 implementation named Covert C2 or C3 (Covert+Command+Control=C3
 
 In this case, the Native Messaging API was weaponized to be used for post-exploitation attacks. This serves as a Proof-of-Concept (PoC) as it can take multiple directions and configurations. This means that it might need some additional implementations before being used in a real-case scenario.
 
-Another reason that this serves as a PoC and not as a complete post-exploitation framework is because this is an open-source project and most EDRs will signature it. So, providing the methodology and simple way of communication could assist future and authorized red-team engagements to success.
+Another reason that this serves as a PoC and not as a complete post-exploitation framework is that this is an open-source project and most EDRs will signature it. So, providing the methodology and simple way of communication could assist future and authorized red-team engagements to success.
 
-All previous works focused on exploiting the browser itself, e.g., stealing cookies, injecting different domains, causing redirects. Only EarthKitsune APT group used a similar technique in 2023 to load a shellcode in the memory of the host by using the Native Messaging API in their attack flow.
+All previous works focused on exploiting the browser itself, e.g., stealing cookies, injecting different domains, or causing redirects. Only EarthKitsune APT group used a similar technique in 2023 to load a shellcode in the memory of the host by using the Native Messaging API in their attack flow.
 
 However, this work communicates directly with the OS, i.e., executes direct commands and uses minimal evasion tactics to achieve this post-exploitation attack. As a result, no tested EDR (4 were tested on free trial) was able to flag this communication as malicious.
 
@@ -77,11 +77,11 @@ The differences and advantages with other C2 frameworks are the following:
 
 * Decentralized approach: Each host can communicate separately with the C2 server, say by using subdomains or implementing cookie functionality.
 * Expandability: The implementation right now supports only Windows, but it can be easily extended to be used against MacOS or Linux since it is mainly focused on using the Native Messaging API which is supported by both MacOS and Linux major browsers.
-* Adaptability: It can adapt in different environments. For example, it can load the shellcode of another C2 framework to continue the post-exploitation attack or construct different type of commands for direct execution.
+* Adaptability: It can adapt to different environments. For example, it can load the shellcode of another C2 framework to continue the post-exploitation attack or construct different type of commands for direct execution.
 * Out-of-the-box Persistence: Persistence is quite crucial in a red team engagement. As a result, C3 offers out-of-the-box persistence to the post-exploitation attack.
 * Direct Code Execution: It offers direct code execution. Although, in some cases, this will limit the attack's execution. In the latter case, using any adapt feature could assist, like using the shellcode of another C2 framework.
-* Enhanced Stealth: EDRs had zero detections against the post-exploitation attacks of this implementation. Considering this implementation had minimal usage of evasion techniques, the evasion capabilities can be further enhanced in the future, if needed. Also, it uses secure traffic with the C2 webserver with the assistance of HTTP/3 and QUIC.
-* Lightweight: The extension, native app, and webserver execution is lightweight.
+* Enhanced Stealth: EDRs had zero detections against the post-exploitation attacks of this implementation. Considering this implementation had minimal usage of evasion techniques, the evasion capabilities can be further enhanced, if needed. Also, it uses secure traffic with the C2 webserver with the assistance of HTTP/3 and QUIC.
+* Lightweight: The extension, native app, and webserver execution is lightweight. This means that low resources are being consumed either from the victim's host or the webserver.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -177,7 +177,7 @@ For testing purposes, an Azure VM was used, along with a free azurewebsites doma
 16. ``` sudo systemctl restart caddy ```
 
 #### Extension
-Regarding the extension installation, we will need the ``` background.js ``` and ``` manifest.json ``` files. Before proceeding with the installation, it should be mentioned there is a different behavior in Chrome and MSEdge. MSEdge can load extensions from anywhere without any issues. However, when the malicious extension is installed and the user opens the browser, the browser popups a message named "Turn off extensions in developer mode." with a highlighted blue button that when it clicked it disables the malicious extension. This can be bypassed with the usage of "headless" mode which will be explained later on. The following screenshot demonstrates this popup message.
+Regarding the extension installation, we will need the ``` background.js ``` and ``` manifest.json ``` files. Before proceeding with the installation, it should be mentioned there is a different behavior in Chrome and MSEdge. MSEdge can load extensions from anywhere without any issues. However, when the malicious extension is installed and the user opens the browser, the browser popups a message named "Turn off extensions in developer mode." with a highlighted blue button that when the user clicks it, the button disables the malicious extension. This can be bypassed with the usage of "headless" mode which will be explained later on. The following screenshot demonstrates this popup message.
 
 ![msedge-dev-ext](https://github.com/user-attachments/assets/fbe16e82-0b43-4405-bcbd-8bff39c56c69)
 
@@ -209,7 +209,7 @@ To further enhance persistence, an attacker can use either shortcuts or the head
 ![chrome-load-extension](https://github.com/user-attachments/assets/8fca5cff-6497-4868-9293-76c12fea980d)
 
 
-However, to avoid having user interaction, an attacker can use the "--headless" mode. MSEdge can use headless mode by adding the "--user-data-dir" flag during execution. This could create a directory with all user's preferences in the desired location, allowing the execution of the malicious extension in headless mode. This means that an attacker can use MSEdge with a malicious extension without having issues with the relevant popup message of disabling the development (malicious) extension.
+However, to avoid having user interaction, an attacker can use the "--headless" mode. MSEdge can use headless mode by adding the "--user-data-dir" flag during execution. This could create a directory with all user's preferences in the desired location, allowing the execution of the malicious extension in headless mode and altering the relevant ``` .lnk ``` file, e.g., ``` "C:\path\to\exe" --load-extension="C:\path\to\extension" --user-data-dir="C:\path\to\create\new-user-data-folder" --headless ```. This means that an attacker can use MSEdge with a malicious extension without having issues with the relevant popup message of disabling the development (malicious) extension.
 
 The same case can be applied to Chrome. However, Chrome for some reason requires to be executed twice with the same flags, i.e., headless and user-data-dir to establish a stable communication with the webserver. As a result, both browsers can be used with headless mode and say a Task Scheduler, without requiring users' interaction for persistence.
 
@@ -269,7 +269,7 @@ For testing purposes, the following six scenarios were implemented and tested to
 5. Lateral movement: The ``` net use ``` command was employed to establish a connection to another host via SMB. Similar to the ``` schtasks ``` scenario, file redirection was used to capture the output. It is noted that enabling WinRM on target hosts would simplify lateral movement and remote command execution with output capture.
 6. Random: The last scenario was employed to illustrate the effectiveness of the evasion with random command execution. This means that this scenario used all the previous scenarios in random order.
 
-To evaluate the detectability of Covert C2 by each EDR, we first installed the necessary components: the Covert C2 framework (including the web server and workstation components) and then the EDR software on the target workstation. The evaluation involved initiating a connection from the Chrome browser to the C2 server every 10 sec. If a command was available, the communication proceeded as described in the relevant figure. Otherwise, the C2 server responded with "No". 
+To evaluate the detectability of Covert C2 by each EDR, we first installed the necessary components: the Covert C2 framework (including the web server and workstation components in the victim's host) and then the EDR software on the target workstation (victim's host). The evaluation involved initiating a connection from the Chrome browser to the C2 server every 10 sec. If a command was available, the communication proceeded as described in the relevant figure. Otherwise, the C2 server responded with "No". 
 
 Each of the six test scenarios was executed for five minutes with randomized command selection, i.e., either a specific scenario URL or a "No" response from the C2 server, for a total of 15 min per EDR. A final 10-min mixed scenario was then conducted, where commands were randomly selected from any of the five test cases (command execution or file upload).
 
@@ -292,9 +292,9 @@ Several potential detection points emerge from the usage of C3. In detail, the f
 2. Using AppLocker and/or Windows Defender Application Control (WDAC).
 3. Registry entries, Task Scheduler, portable execution of browsers, shortcuts, and browsers executing CMD can be potentially monitored with different YARA rules. While not foulproof, examples of three (3) YARA rules are provided in the YARA directory.
 
-From the above mitigations, only the GPO is the most effective one if configured correctly since it blocks the installation of any extension ID that it is not in the whitelist of the relevant policy. Two (2) and three (3) options in the above list can be potentially bypassed with different implementation and/or misconfigurations.
+From the above mitigations, only the GPO is the most effective one if configured correctly since it blocks the installation of any extension ID that this ID is not in the whitelist of the relevant policy. Options two (2) and three (3) in the above list can be potentially bypassed with different implementations and/or misconfigurations.
 
-For example, AppLocker can be bypassed if a portable browser is used or a filetype that is not in the restricted list, say ``` .vbs ``` or with a DLL sideloading attack. Additionally, monitoring different functionalities functions as a signature way of flagging these operations. As a result, an attacker that uses a different functionality could potentially bypass this detection method.
+For example, AppLocker can be bypassed if a portable browser is used or a filetype that is not in the restricted list, say ``` .vbs ``` or with a DLL sideloading attack. Additionally, monitoring different functionalities is a more signature way of flagging these operations. As a result, an attacker that uses a different functionality to potentially bypass this detection method.
 
 To visualize the analysis, the following screenshot demonstrates the child processes of Chrome browser when communicates with the native app and when the native app executes a ping command. The third screenshot demonstrates what a user will view when a GPO blocks the installation of not-whitelisted extensions and an attacker tries to load a malicious extension with the "load-extension" flag.
 
