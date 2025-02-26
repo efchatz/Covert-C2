@@ -275,7 +275,7 @@ Each of the six test scenarios was executed for five minutes with randomized com
 
 Remarkably, the proposed scheme evaded detection by all tested EDR solutions across all six scenarios. This finding suggests a significant vulnerability in a range of EDR products to this post-exploitation technique. The fact that zero detections were recorded, despite the absence of code obfuscation (excluding the necessary Base64 encoding for file uploads), further underscores the potential impact of this approach. 
 
-Here is a short demonstration of the C3 command execution. Webserver is waiting for a connection to be established with an extension. Only then, the webapp enables the two buttons with green color. The first command is a whoami, while the second command is a ping 8.8.8.8. Both commands return their output to the webserver. Note that the OneDrive popup is irrelevant to the C3.
+Here is a short demonstration of the C3 command execution. The webserver is on the left side of the screen, while the victim's host on the right. The webserver is waiting for a connection to be established with an extension. Only then, the webapp enables the two buttons with green color. The first command is a whoami, while the second command is a ping 8.8.8.8. Both commands return their output to the webserver that are be noted in the "Last Execution" field. Note that the OneDrive popup is irrelevant to the C3. The installation procedure is that the attacker used the "--load-extension" flag in the ``` .lnk ``` of the Chrome browser.
 
 https://github.com/user-attachments/assets/0b1486f7-09b4-4992-930a-3172991126b4
 
