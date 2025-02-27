@@ -15,7 +15,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/efchatz/Covert-C2/blob/main/images/covert-c2.png">
-    <img src="images/logo.png" alt="Logo" width="600" height="300">
+    <img src="https://github.com/efchatz/Covert-C2/blob/main/images/covert-c2.png" alt="Logo" width="600" height="400">
   </a>
 
 <h3 align="center">Covert C2</h3>
@@ -228,7 +228,7 @@ The following figure demonstrates this communication.
 
 <div align="center">
   <a href="https://github.com/efchatz/Covert-C2/blob/main/images/communication.png">
-    <img src="images/logo.png" alt="Logo" width="300" height="150">
+    <img src="https://github.com/efchatz/Covert-C2/blob/main/images/communication.png" alt="Logo" width="800" height="300">
   </a>
 </div>
 
