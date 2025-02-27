@@ -228,7 +228,7 @@ The following figure demonstrates this communication.
 
 <div align="center">
   <a href="https://github.com/efchatz/Covert-C2/blob/main/images/communication.png">
-    <img src="https://github.com/efchatz/Covert-C2/blob/main/images/communication.png" alt="Logo" width="800" height="300">
+    <img src="https://github.com/efchatz/Covert-C2/blob/main/images/communication.png" alt="Logo" width="800" height="250">
   </a>
 </div>
 
