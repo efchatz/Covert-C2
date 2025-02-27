@@ -101,7 +101,7 @@ The differences and advantages with other C2 frameworks are the following:
 <!-- GETTING STARTED -->
 ## Getting Started
 
-The following section describes the installation procedure for the C2 webserver, the extension, and the native application. For testing purposes, only Chromium browsers were tested, i.e., Chrome and MSEdge.
+The following section describes the installation procedure for the C2 webserver, the extension, and the native application. For testing purposes, only Chromium browsers were tested, i.e., Chrome and MSEdge. Regarding the development of the native app or the reflective DLL, a common environment was used, i.e., Visual Studio 2022 with all of the relevant Windows SDKs installed.
 
 Relevant testbed and versions:
 * MS Windows 10 Enterprise (build 19045.5371)
@@ -109,6 +109,8 @@ Relevant testbed and versions:
 * Chrome v132.0.6834.160
 * Ubuntu Server 22.04 LTS
 * Caddy v2.9.1
+* PHP v8.4
+* Python v3.11.6
 
 ### Installation
 
