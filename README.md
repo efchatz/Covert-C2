@@ -75,13 +75,13 @@ This means that such an attack is mostly undocumented by EDR vendors and could c
 ## Capabilities & Advantages
 The differences and advantages with other C2 frameworks are the following:
 
-* Decentralized approach: Each host can communicate separately with the C2 server, say by using subdomains or implementing cookie functionality.
+* Decentralized approach: Each host can communicate separately with any number of C2 servers, say by using subdomains or domains or implementing a cookie functionality.
 * Expandability: The implementation right now supports only Windows, but it can be easily extended to be used against MacOS or Linux since it is mainly focused on using the Native Messaging API which is supported by both MacOS and Linux major browsers.
 * Adaptability: It can adapt to different environments. For example, it can load the shellcode of another C2 framework to continue the post-exploitation attack or construct different type of commands for direct execution.
-* Out-of-the-box Persistence: Persistence is quite crucial in a red team engagement. As a result, C3 offers out-of-the-box persistence to the post-exploitation attack.
+* Out-of-the-box Persistence: Persistence is quite crucial in a red team engagement. As a result, C3 offers out-of-the-box persistence to the post-exploitation attack by utilizing browser plugins.
 * Direct Code Execution: It offers direct code execution. Although, in some cases, this will limit the attack's execution. In the latter case, using any adapt feature could assist, like using the shellcode of another C2 framework.
 * Enhanced Stealth: EDRs had zero detections against the post-exploitation attacks of this implementation. Considering this implementation had minimal usage of evasion techniques, the evasion capabilities can be further enhanced, if needed. Also, it uses secure traffic with the C2 webserver with the assistance of HTTP/3 and QUIC.
-* Lightweight: The extension, native app, and webserver execution is lightweight. This means that low resources are being consumed either from the victim's host or the webserver.
+* Lightweight: The extension, native app, and webserver executions are lightweight. This means that low resources are being consumed either from the victim's host or the webserver.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
