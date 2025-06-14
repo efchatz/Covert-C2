@@ -56,7 +56,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is a new C2 implementation named Covert C2 or C3 (Covert+Command+Control=C3) that uses the Native Messaging API to establish a post-exploitation communication against a host. Native Messaging API is a browser API that is used from extension to communicate with desktop applications.
+This is a new C2 implementation named Covert C2 or C3 (Covert+Command+Control=C3) that uses the Native Messaging API to establish a post-exploitation communication against a host. Native Messaging API is a browser API that is used from extension to communicate with desktop applications. For more details, here is a link to the relevant paper: https://www.mdpi.com/1999-5903/17/4/172
 
 In this case, the Native Messaging API was weaponized to be used for post-exploitation attacks. This serves as a Proof-of-Concept (PoC) as it can take multiple directions and configurations. This means that it might need some additional implementations before being used in a real-case scenario.
 
@@ -66,7 +66,7 @@ All previous works focused on exploiting the browser itself, e.g., stealing cook
 
 However, this work communicates directly with the OS, i.e., executes direct commands and uses minimal evasion tactics to achieve this post-exploitation attack. As a result, no tested EDR (4 were tested on free trial) was able to flag this communication as malicious.
 
-This means that such an attack is mostly undocumented by EDR vendors and could cause serious issues when exploited. 
+This means that such an attack is mostly undocumented by EDR vendors and could cause serious issues when exploited.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
