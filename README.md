@@ -25,6 +25,7 @@
     <br />
     <a href="https://github.com/efchatz/Covert-C2/issues">Report Bug</a>
   </p>
+     <img src="https://img.shields.io/badge/Black%20Hat%20Arsenal-USA%202025-red"/>
 </div>
 
 
